@@ -1,0 +1,11 @@
+const express = require('express');
+const router = express.Router(); 
+const auth = require('../middleware/auth'); 
+const permit = require('../middleware/roles'); 
+const ctl = require('../controllers/vehicleController'); 
+router.get('/', auth, ctl.getVehicles); 
+router.get('/:id', auth, ctl.getVehicle); 
+router.post('/', auth, permit('admin'), ctl.createVehicle); 
+router.put('/:id', auth, permit('admin'), ctl.updateVehicle); 
+router.delete('/:id', auth, permit('admin'), ctl.deleteVehicle);
+ module.exports = router;
